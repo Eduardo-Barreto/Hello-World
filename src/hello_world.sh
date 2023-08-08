@@ -98,20 +98,27 @@ if ask_to_install "Gnome packages"; then
     apt_install gedit -y
 fi
 
-##################
-# Install OhMyZsh #
-##################
+################
+# Install Fish #
+################
 
-if ask_to_install "OhMyZsh"; then
+if ask_to_install "Fish"; then
 
-    apt_install zsh -y
+    sudo apt-add-repository ppa:fish-shell/release-3 -y >> "$LOG_FILE" 2>&1
+    apt_update
+    apt_install fish -y
 
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" >> $LOG_FILE 2>&1
+    sudo echo -e $(which fish) | sudo tee -a /etc/shells
+    sudo chsh -s $(which fish)
+    chsh -s $(which fish)
 
-    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions >> $LOG_FILE 2>&1
-    git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting >> $LOG_FILE 2>&1
+    log "\tInstalling Starship..."
+    curl -fsSL https://starship.rs/install.sh | sh
+    mkdir -p ~/.config/fish/
+    echo -e "starship init fish | source" >> ~/.config/fish/config.fish
+
+    log_success "Fish installed successfully!\n"
 fi
-
 
 ##################
 # Install VsCode #
