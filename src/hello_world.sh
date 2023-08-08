@@ -62,26 +62,28 @@ log_success "Done!"
 ##############################
 
 echo ""
-apt_install "build-essential"
-apt_install "cmake"
-apt_install "python3"
-apt_install "python3-pip"
-apt_install "git"
-apt_install "uncrustify"
-apt_install "curl"
-apt_install "libusb-1.0-0-dev"
-apt_install "xclip"
-apt_install "neofetch"
-apt_install "snapd"
-apt_install "zip"
-apt_install "unzip"
-apt_install "gdb-multiarch"
-apt_install "vim"
-apt_install "openocd"
-apt_install "stlink-tools"
-apt_install "flameshot"
+apt_install build-essential
+apt_install cmake
+apt_install python3
+apt_install python3-pip
+apt_install git
+apt_install uncrustify
+apt_install curl
+apt_install libusb-1.0-0-dev
+apt_install xclip
+apt_install neofetch
+apt_install snapd
+apt_install zip
+apt_install unzip
+apt_install gdb-multiarch
+apt_install vim
+apt_install openocd
+apt_install stlink-tools
+apt_install flameshot
+apt_install openocd
+apt_install stlink-tools
 
-if apt_install "flatpak"; then
+if apt_install flatpak; then
     flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 fi
 
@@ -179,6 +181,10 @@ if ask_to_install STM32 Software; then
     download_stm_software "STM32CubeMX" "https://www.st.com/content/ccc/resource/technical/software/sw_development_suite/group0/2c/a3/27/b8/47/ca/4b/d4/stm32cubemx-lin-v6-9-1/files/stm32cubemx-lin-v6-9-1.zip/jcr:content/translations/en.stm32cubemx-lin-v6-9-1.zip" "Setup*"
     download_stm_software "STM32CubeProgrammer" "https://www.st.com/content/ccc/resource/technical/software/utility/group0/06/ed/fd/c3/aa/6c/41/14/stm32cubeprg-lin-v2-14-0/files/stm32cubeprg-lin-v2-14-0.zip/jcr:content/translations/en.stm32cubeprg-lin-v2-14-0.zip" "Setup*linux"
     download_stm_software "STM32CubeMonitor" "https://www.st.com/content/ccc/resource/technical/software/sw_development_suite/group0/7d/b8/22/d5/6c/2b/43/4b/stm32cubemon-lin-v-1-6-0/files/stm32cubemon-lin-v-1-6-0.zip/jcr:content/translations/en.stm32cubemon-lin-v-1-6-0.zip" "apt"
+
+    log "\t\tDownloading Segger JLink..."
+    curl -fsLO -d 'accept_license_agreement=accepted&submit=Download+software' https://www.segger.com/downloads/jlink/JLink_Linux_x86_64.deb
+    dpkg_install "./JLink_Linux_x86_64.deb"
 
     # Add udev rules
     cd ~/STMicroelectronics/STM32Cube/STM32CubeProgrammer/Drivers/rules

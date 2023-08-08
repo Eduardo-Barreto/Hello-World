@@ -78,6 +78,21 @@ snap_install(){
     fi
 }
 
+dpkg_install(){
+    local package_name=$1
+
+    log "\tInstalling $package_name..."
+
+    if sudo dpkg -i $package_name >> $LOG_FILE 2>&1; then
+        log_success "\t$package_name installed"
+        return 0
+    else
+        log_error "\tFailed to install $package_name." >&2
+        show_last_error
+        return 1
+    fi
+}
+
 download_stm_software() {
     local software_name=$1
     local download_url=$2
