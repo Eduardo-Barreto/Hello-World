@@ -53,8 +53,8 @@ fi
 ###############################
 
 log "Updating the list of packages..."
-sudo apt update -y > /dev/null 2>&1
-sudo apt upgrade -y > /dev/null 2>&1
+apt_update
+sudo apt upgrade -y >> "$LOG_FILE" 2>&1
 log_success "Done!"
 
 ##############################
