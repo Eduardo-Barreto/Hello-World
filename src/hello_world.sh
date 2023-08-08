@@ -161,19 +161,6 @@ if ask_to_install "Node.js"; then
     log_success "nvm and node installed"
 fi
 
-#################
-# Install PyEnv #
-#################
-
-if ask_to_install "PyEnv"; then
-
-    curl https://pyenv.run | bash >> $LOG_FILE 2>&1
-    echo -e "export PATH=\"\$HOME/.pyenv/bin:\$PATH\"\neval \"\$(pyenv init -)\"\neval \"\$(pyenv virtualenv-init -)\"" >> ~/.bashrc
-    source ~/.bashrc
-
-    log_success "PyEnv installed"
-fi
-
 ##########################
 # Install STM32 Software #
 ##########################
