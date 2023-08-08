@@ -273,25 +273,22 @@ log "Configuring the system..."
 
 apt_install fonts-firacode
 
-######################
-# Install Meslo Font #
-######################
+#####################
+# Install Nerdfonts #
+#####################
 
-if ask_to_install "Meslo Font"; then
+if ask_to_install "NerdFonts"; then
 
     mkdir -p ~/.local/share/fonts
     cd ~/.local/share/fonts
+    curl -fsLO https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/FiraCode/Bold/FiraCodeNerdFontMono-Bold.ttf
+    curl -fsLO https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/FiraCode/Light/FiraCodeNerdFontMono-Light.ttf
+    curl -fsLO https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/FiraCode/Medium/FiraCodeNerdFontMono-Medium.ttf
+    curl -fsLO https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/FiraCode/Regular/FiraCodeNerdFontMono-Regular.ttf
+    curl -fsLO https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/FiraCode/Retina/FiraCodeNerdFontMono-Retina.ttf
+    curl -fsLO https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/FiraCode/SemiBold/FiraCodeNerdFontMono-SemiBold.ttf
 
-    curl -fsLO https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
-    curl -fsLO https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
-    curl -fsLO https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
-    curl -fsLO https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
-
-    cd ~
-
-    fc-cache -f -v ~/.local/share/fonts >> $LOG_FILE 2>&1
-
-    log_success "Meslo Font installed"
+    log_success "Nerdfonts installed successfully!\n"
 fi
 
 #################
