@@ -23,10 +23,18 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+# Export
+
+export PATH="/home/eduardo-barreto/Apps/gcc-arm-none-eabi-10.3-2021.10/bin/:$PATH"
+export PATH="/home/eduardo-barreto/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin:$PATH"
+export CUBE_PATH="/home/eduardo-barreto/STM32CubeMX"
+
+export VISUAL="gedit"
+
 # Alias
 alias install='sudo apt install -y'
 alias uninstall='sudo apt remove'
-alias update='sudo apt update -y && sudo apt upgrade -y && flatpak update -y && snap refresh -y'
+alias update='sudo apt update -y && sudo apt upgrade -y && flatpak update -y && snap refresh'
 alias clean='sudo apt autoclean && sudo apt autoremove'
 alias fix='sudo apt install -f'
 alias moo='apt moo'
@@ -65,14 +73,6 @@ function compile_c(){
 	gcc "${name}.c" -o "out/${name}.o" -lm
 	./out/${name}.o
 }
-
-# Export
-
-export PATH="/home/eduardo-barreto/Apps/gcc-arm-none-eabi-10.3-2021.10/bin/:$PATH"
-export PATH="/home/eduardo-barreto/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin:$PATH"
-export CUBE_PATH="/home/eduardo-barreto/STM32CubeMX"
-
-export VISUAL="gedit"
 
 # Other settings
 
