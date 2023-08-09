@@ -180,7 +180,7 @@ if ask_to_install STM32 Software; then
     cd ~/STM32
     download_stm_software "STM32CubeMX" "https://www.st.com/content/ccc/resource/technical/software/sw_development_suite/group0/2c/a3/27/b8/47/ca/4b/d4/stm32cubemx-lin-v6-9-1/files/stm32cubemx-lin-v6-9-1.zip/jcr:content/translations/en.stm32cubemx-lin-v6-9-1.zip" "Setup*"
     download_stm_software "STM32CubeProgrammer" "https://www.st.com/content/ccc/resource/technical/software/utility/group0/06/ed/fd/c3/aa/6c/41/14/stm32cubeprg-lin-v2-14-0/files/stm32cubeprg-lin-v2-14-0.zip/jcr:content/translations/en.stm32cubeprg-lin-v2-14-0.zip" "Setup*linux"
-    download_stm_software "STM32CubeMonitor" "https://www.st.com/content/ccc/resource/technical/software/sw_development_suite/group0/7d/b8/22/d5/6c/2b/43/4b/stm32cubemon-lin-v-1-6-0/files/stm32cubemon-lin-v-1-6-0.zip/jcr:content/translations/en.stm32cubemon-lin-v-1-6-0.zip" "apt"
+    download_stm_software "STM32CubeMonitor" "https://www.st.com/content/ccc/resource/technical/software/sw_development_suite/group0/7d/b8/22/d5/6c/2b/43/4b/stm32cubemon-lin-v-1-6-0/files/stm32cubemon-lin-v-1-6-0.zip/jcr:content/translations/en.stm32cubemon-lin-v-1-6-0.zip" "dpkg"
 
     log "\t\tDownloading Segger JLink..."
     curl -fsLO -d 'accept_license_agreement=accepted&submit=Download+software' https://www.segger.com/downloads/jlink/JLink_Linux_x86_64.deb

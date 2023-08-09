@@ -110,8 +110,8 @@ download_stm_software() {
 
     log "\t\tInstalling $software_name..."
 
-    if [ "$install_command" == "apt" ] ;then
-        sudo apt install ./*.deb >> $LOG_FILE 2>&1
+    if [ "$install_command" == "dpkg" ] ;then
+        sudo dpkg -i ./*.deb
     else
         chmod +x ./$install_command
         ./$install_command >> $LOG_FILE 2>&1
