@@ -7,9 +7,14 @@ starship init fish | source
 
 # Set welcome message
 function fish_greeting
+    set system_language $LANG
     set -x LANG pt_BR.UTF-8
-    echo (set_color brblue; date +%l) e (date +%M) da madrugada de (date +%A) e vc trabalhando... (set_color normal)
-    set -x LANG en_GB.UTF-8
+
+    set_color brblue
+    cowsay -f tux (date +%l) e (date +%M) da madrugada de (date +%A) e vc trabalhando...
+    set_color normal
+
+    set -x LANG $system_language
 end
 
 # Variables
