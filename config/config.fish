@@ -5,10 +5,11 @@ end
 # Init starship
 starship init fish | source
 
-# Remove welcome message
+# Set welcome message
 function fish_greeting
-    echo Hello friend!
-    echo The time is (set_color yellow; date +%T; set_color normal) and this machine is called $hostname
+    set -x LANG pt_BR.UTF-8
+    echo (set_color brblue; date +%l) e (date +%M) da madrugada de (date +%A) e vc trabalhando... (set_color normal)
+    set -x LANG en_GB.UTF-8
 end
 
 # Variables
@@ -69,6 +70,7 @@ function compile_c
     gcc "$name.c" -o "out/$name.o" -lm
     ./out/$name.o
 end
+
 
 function clone
     git clone $argv && cd (basename "$argv" .git)
