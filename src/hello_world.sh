@@ -82,6 +82,8 @@ apt_install stlink-tools
 apt_install flameshot
 apt_install openocd
 apt_install stlink-tools
+apt_install cheese
+apt_install cowsay
 
 if apt_install flatpak; then
     flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
