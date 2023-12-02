@@ -112,6 +112,16 @@ function cube
         return 1
     end
 
+    # Função de ajuda
+    function show_help
+        echo "Uso: cube [-v|--verbose] [-e|--empty] [caminho_do_projeto]"
+        echo "  -v, --verbose  Ativa o modo verbose, exibindo mensagens detalhadas."
+        echo "  -e, --empty    Abre o STM32CubeMX sem um projeto, caso nenhum caminho seja fornecido."
+        echo "  caminho_do_projeto Caminho para o arquivo .ioc do projeto STM32CubeMX."
+        echo "                    Se não fornecido e a flag -e não estiver presente, tentará encontrar automaticamente."
+
+    end
+
     # Trata as flags fornecidas como argumento
     for arg in $argv
         switch $arg
@@ -119,6 +129,9 @@ function cube
                 set verbose_mode true
             case -e --empty
                 set open_empty true
+            case -h --help
+                show_help
+                return
             case *
                 set project_path $arg
         end
