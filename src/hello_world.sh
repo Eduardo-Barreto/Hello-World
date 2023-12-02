@@ -168,8 +168,10 @@ if ask_to_install "Node.js"; then
     source ~/.bashrc
 
     nvm install --lts >> $LOG_FILE 2>&1
+    apt_install npm -y
 
     log_success "nvm and node installed"
+
 fi
 
 ##########################
