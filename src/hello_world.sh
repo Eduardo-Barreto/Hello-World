@@ -77,18 +77,36 @@ apt_install zip
 apt_install unzip
 apt_install gdb-multiarch
 apt_install vim
-apt_install openocd
-apt_install stlink-tools
 apt_install flameshot
 apt_install openocd
 apt_install stlink-tools
 apt_install cheese
 apt_install cowsay
 apt_install fzf
-apt_install tmux
+apt_install tree 
+apt_install black
+apt_install exa
+apt_install bat
+apt_install httpie
+apt_install clang-format
+apt_install ffmpeg
+apt_install lazygit
+apt_install openvpn3
+apt_install tldr
+apt_install joystick
+apt_install scrcpy
 
 if apt_install flatpak; then
     flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+fi
+
+###############
+# Install zsh #
+###############
+
+if ask_to_install "Zsh"; then
+    apt_install zsh
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
 ##########################
@@ -102,47 +120,6 @@ if ask_to_install "Gnome packages"; then
     apt_install dconf-editor -y
     apt_install dconf-cli -y
     apt_install gedit -y
-fi
-
-################
-# Install Fish #
-################
-
-if ask_to_install "Fish"; then
-    
-    sudo apt-add-repository ppa:fish-shell/release-3 -y >> "$LOG_FILE" 2>&1
-    apt_update
-    apt_install fish -y
-    
-    sudo echo -e $(which fish) | sudo tee -a /etc/shells
-    sudo chsh -s $(which fish)
-    chsh -s $(which fish)
-    
-    log "\tInstalling Starship..."
-    curl -fsSL https://starship.rs/install.sh | sh
-    mkdir -p ~/.config/fish/
-    echo -e "starship init fish | source" >> ~/.config/fish/config.fish
-    
-    log_success "Fish installed successfully!\n"
-fi
-
-##################
-# Install VsCode #
-##################
-
-if ask_to_install "VsCode"; then
-    
-    apt_install wget -y
-    apt_install gpg -y
-    
-    wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-    sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
-    sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
-    rm -f packages.microsoft.gpg
-    
-    apt_install apt-transport-https -y
-    apt_update
-    apt_install code -y
 fi
 
 #################
