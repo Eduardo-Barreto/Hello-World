@@ -107,6 +107,21 @@ fi
 if ask_to_install "Zsh"; then
     apt_install zsh
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    touch ~/.zshrc
+fi
+
+##################
+# Install Neovim #
+##################
+
+if ask_to_install "Neovim"; then
+
+    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+    sudo rm -rf /opt/nvim
+    sudo tar -C /opt -xzf nvim-linux64.tar.gz
+
+    echo "export PATH=\$PATH:/opt/nvim/bin" >> ~/.zshrc
+
 fi
 
 ##########################
