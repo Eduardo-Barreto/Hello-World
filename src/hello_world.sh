@@ -85,7 +85,6 @@ apt_install cowsay
 apt_install fzf
 apt_install tree 
 apt_install black
-apt_install exa
 apt_install bat
 apt_install httpie
 apt_install clang-format
@@ -95,6 +94,7 @@ apt_install openvpn3
 apt_install tldr
 apt_install joystick
 apt_install scrcpy
+apt_install ripgrep
 
 if apt_install flatpak; then
     flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -108,7 +108,34 @@ if ask_to_install "Zsh"; then
     apt_install zsh
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     touch ~/.zshrc
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting\n
 fi
+
+###################
+# Install lazygit #
+###################
+
+if ask_to_install "Lazygit"; then
+    LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+    curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+    tar xf lazygit.tar.gz lazygit
+    sudo install lazygit /usr/local/bin
+fi
+
+###############
+# Install exa #
+###############
+
+if ask_to_install "eza"; then
+    sudo mkdir -p /etc/apt/keyrings
+    wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo gpg --dearmor -o /etc/apt/keyrings/gierens.gpg
+    echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/gierens.list
+    sudo chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list
+    sudo apt update
+    sudo apt install -y eza
+fi
+
 
 ##################
 # Install Neovim #
@@ -163,9 +190,9 @@ if ask_to_install "Node.js"; then
     
     nvm install --lts >> $LOG_FILE 2>&1
     apt_install npm -y
+    sudo npm install --global yarn
     
     log_success "nvm and node installed"
-    
 fi
 
 ##########################
