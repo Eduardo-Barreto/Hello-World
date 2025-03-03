@@ -62,8 +62,13 @@ log_success "Done!"
 ##############################
 
 echo ""
+apt_install nala
 apt_install build-essential
 apt_install cmake
+apt_install default-jre
+apt_install make
+apt_install gcc-arm-none-eabi
+apt_install gdb-multiarch
 apt_install python3
 apt_install python3-pip
 apt_install git
@@ -88,6 +93,7 @@ apt_install black
 apt_install bat
 apt_install httpie
 apt_install clang-format
+apt_install clang-tidy
 apt_install ffmpeg
 apt_install lazygit
 apt_install openvpn3
@@ -95,6 +101,7 @@ apt_install tldr
 apt_install joystick
 apt_install scrcpy
 apt_install ripgrep
+apt_install blueman
 
 if apt_install flatpak; then
     flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -178,21 +185,17 @@ if ask_to_install "PyEnv"; then
 fi
 
 ###############
-# Install nvm #
+# Install fnm#
 ###############
 
 if ask_to_install "Node.js"; then
     
-    curl --silent https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash >> $LOG_FILE 2>&1
-    source ~/.nvm/nvm.sh
-    source ~/.profile
-    source ~/.bashrc
+    curl -fsSL https://fnm.vercel.app/install | bash >> $LOG_FILE 2>&1
     
-    nvm install --lts >> $LOG_FILE 2>&1
+    fnm install --lts >> $LOG_FILE 2>&1
     apt_install npm -y
-    sudo npm install --global yarn
-    
-    log_success "nvm and node installed"
+    sudo npm install --global yarn prettier nodemon firebase-tools
+    log_success "fnm and node installed"
 fi
 
 ##########################
@@ -207,22 +210,6 @@ if ask_to_install "SEGGER" ; then
     
     log_success "SEGGER Installed"
     
-fi
-
-###################
-# Install ARM GCC #
-###################
-
-if ask_to_install "ARM GCC"; then
-    
-    cd
-    curl -fsLO "https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.10/gcc-arm-none-eabi-10.3-2021.10-x86_64-linux.tar.bz2"
-    tar -xvf gcc-arm-none-eabi-10.3-2021.10-x86_64-linux.tar.bz2 >> $LOG_FILE 2>&1
-    sudo mkdir /opt/arm-none-eabi
-    sudo mv gcc-arm-none-eabi-10.3-2021.10 /opt/arm-none-eabi
-    rm gcc-arm-none-eabi-10.3-2021.10-x86_64-linux.tar.bz2
-    
-    log_success "ARM GCC installed"
 fi
 
 ###################
